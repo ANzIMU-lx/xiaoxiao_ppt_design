@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PPT Design System · 55组件</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;600&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: #ffb300;
+  --accent-light: #ffe082;
+  --accent-bg: #fff8e1;
+  --text-primary: #1a1a1a;
+  --text-secondary: #5d4037;
+  --positive: #66bb6a;
+  --negative: #ef5350;
+  --page-bg: #fefcf8;
+  --card-bg: #ffffff;
+  --card-radius: 16px;
+  --card-shadow: 0 2px 12px rgba(0,0,0,.04);
+  --tag-blue-bg: rgba(59,130,246,.1);
+  --tag-blue-color: #3b82f6;
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'Noto Sans SC', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-handwrite: 'Caveat', cursive;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: var(--font-body);
+  background: var(--page-bg);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Navigation */
+.nav-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255,255,255,.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+  padding: 12px 32px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.nav-bar::-webkit-scrollbar { height: 0; }
+.nav-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: .85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: all .2s;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.nav-item:hover { background: var(--accent-bg); color: var(--text-primary); }
+.nav-item.active { background: var(--accent); color: #fff; font-weight: 700; }
+
+/* Header */
+.page-header {
+  text-align: center;
+  padding: 64px 32px 48px;
+}
+.page-header h1 {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.page-header .subtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+/* Section */
+.section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px 64px;
+}
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin-bottom: 32px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--accent-light);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Component Card */
+.comp-card {
+  background: var(--card-bg);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  margin-bottom: 32px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,.03);
+}
+.comp-header {
+  padding: 20px 28px;
+  border-bottom: 1px solid rgba(0,0,0,.04);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.comp-number {
+  font-family: var(--font-mono);
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-bg);
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+.comp-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.comp-tags {
+  display: flex;
+  gap: 6px;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+.tag {
+  font-size: .72rem;
+  padding: 3px 10px;
+  border-radius: 12px;
+  background: var(--tag-blue-bg);
+  color: var(--tag-blue-color);
+  font-weight: 500;
+}
+.comp-body {
+  padding: 40px 48px;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Text Effects */
+.kinetic-text { font-family: var(--font-display); font-size: 3rem; font-weight: 900; }
+.kinetic-text span { display: inline-block; animation: wave 1.2s ease-in-out infinite; }
+@keyframes wave { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+
+.comic-text {
+  font-family: var(--font-display); font-size: 3.5rem; font-weight: 900;
+  color: var(--accent);
+  -webkit-text-stroke: 2px var(--text-primary);
+  text-shadow: 4px 4px 0 var(--text-primary);
+  letter-spacing: 2px;
+}
+
+.sparkle-container { position: relative; display: inline-block; }
+.sparkle-text { font-family: var(--font-display); font-size: 3rem; font-weight: 900; color: var(--text-primary); }
+.sparkle {
+  position: absolute; width: 10px; height: 10px;
+  background: var(--accent); border-radius: 50%;
+  animation: sparkle-anim 1.5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes sparkle-anim { 0%,100%{opacity:0;transform:scale(0)} 50%{opacity:1;transform:scale(1)} }
+
+.typing-text { font-family: var(--font-mono); font-size: 1.4rem; font-weight: 600; white-space: nowrap; }
+.typing-cursor { display: inline-block; width: 2px; height: 1.2em; background: var(--accent); margin-left: 2px; animation: blink .8s infinite; vertical-align: text-bottom; }
+@keyframes blink { 0%,50%{opacity:1} 51%,100%{opacity:0} }
+
+.morph-text { font-family: var(--font-display); font-size: 2.8rem; font-weight: 900; }
+.morph-word { display: inline-block; transition: all .5s; }
+
+.highlight-text { font-size: 1.2rem; line-height: 2; }
+.highlight-text mark {
+  background: linear-gradient(120deg, var(--accent-light) 0%, var(--accent-light) 100%);
+  background-repeat: no-repeat; background-size: 100% 40%; background-position: 0 85%;
+  padding: 0 4px;
+}
+
+.multi-highlight span.hl {
+  background: linear-gradient(120deg, var(--accent-light) 0%, var(--accent-light) 100%);
+  background-repeat: no-repeat; background-size: 100% 45%; background-position: 0 80%;
+  padding: 0 2px; font-weight: 700;
+}
+
+/* Cards */
+.magazine-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
+.magazine-card {
+  border: 1px solid rgba(0,0,0,.08); border-radius: 12px; padding: 32px;
+  position: relative; overflow: hidden;
+}
+.magazine-card h3 { font-size: 1.2rem; font-weight: 900; margin-bottom: 8px; }
+.magazine-card p { font-size: .9rem; color: var(--text-secondary); line-height: 1.5; }
+.magazine-card .en-label {
+  position: absolute; bottom: 12px; right: 16px;
+  font-family: var(--font-mono); font-size: .7rem; color: rgba(0,0,0,.15); font-weight: 600; text-transform: uppercase;
+}
+
+.numbered-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; }
+.numbered-card { padding: 28px; border: 1px solid rgba(0,0,0,.06); border-radius: 12px; }
+.numbered-card .big-num { font-family: var(--font-display); font-size: 3rem; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 12px; }
+.numbered-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+.numbered-card p { font-size: .85rem; color: var(--text-secondary); }
+
+.grid-2x2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%; }
+.grid-2x2 .g-card {
+  padding: 24px; border: 1px solid rgba(0,0,0,.06); border-radius: 12px;
+  display: flex; gap: 16px; align-items: flex-start;
+}
+.grid-2x2 .g-num { font-family: var(--font-display); font-size: 2rem; font-weight: 900; color: var(--accent); line-height: 1; }
+.grid-2x2 .g-content h4 { font-size: .95rem; font-weight: 700; margin-bottom: 4px; }
+.grid-2x2 .g-content p { font-size: .82rem; color: var(--text-secondary); }
+
+.reveal-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; width: 100%; }
+.reveal-card {
+  padding: 28px; border-radius: 12px; border: 1px solid rgba(0,0,0,.06);
+  text-align: center; cursor: pointer; transition: all .3s; position: relative; overflow: hidden;
+}
+.reveal-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; transition: transform .3s; }
+.reveal-card .reveal-def {
+  font-size: .82rem; color: var(--text-secondary); max-height: 0;
+  overflow: hidden; transition: max-height .4s, opacity .3s; opacity: 0;
+}
+.reveal-card:hover .reveal-def { max-height: 100px; opacity: 1; }
+.reveal-card:hover { border-color: var(--accent); background: var(--accent-bg); transform: translateY(-2px); }
+
+.kpi-card {
+  background: var(--card-bg); border: 1px solid rgba(0,0,0,.06); border-radius: 12px;
+  padding: 28px 32px; min-width: 220px;
+}
+.kpi-card .kpi-label { font-size: .8rem; color: var(--text-secondary); margin-bottom: 4px; }
+.kpi-card .kpi-value { font-family: var(--font-display); font-size: 2.4rem; font-weight: 900; }
+.kpi-card .kpi-trend { font-size: .82rem; margin-top: 6px; display: flex; align-items: center; gap: 4px; }
+.kpi-card .kpi-trend.up { color: var(--positive); }
+.kpi-card .kpi-trend.down { color: var(--negative); }
+
+/* Quotes */
+.pull-quote {
+  border-left: 4px solid var(--accent); padding: 24px 32px; position: relative; width: 100%;
+}
+.pull-quote .big-quote {
+  font-family: var(--font-display); font-size: 4rem; color: var(--accent); line-height: 1;
+  position: absolute; top: 8px; left: 32px; opacity: .3;
+}
+.pull-quote p { font-size: 1.4rem; font-weight: 700; font-style: italic; padding-left: 28px; }
+.pull-quote .quote-author { font-size: .85rem; color: var(--text-secondary); padding-left: 28px; margin-top: 8px; }
+
+.insight-box {
+  border: 2px dashed var(--accent); border-radius: 12px; padding: 28px 32px;
+  position: relative; width: 100%; background: var(--accent-bg);
+}
+.insight-box .insight-label {
+  position: absolute; top: -12px; left: 24px;
+  background: var(--accent); color: #fff; font-family: var(--font-handwrite);
+  font-size: .9rem; padding: 2px 14px; border-radius: 8px; font-weight: 700;
+}
+.insight-box p { font-family: var(--font-handwrite); font-size: 1.4rem; color: var(--text-primary); }
+
+.chat-bubbles { width: 100%; max-width: 500px; }
+.chat-row { display: flex; margin-bottom: 12px; }
+.chat-row.right { justify-content: flex-end; }
+.chat-bubble {
+  max-width: 70%; padding: 12px 18px; border-radius: 16px;
+  font-size: .9rem; line-height: 1.5;
+}
+.chat-row.left .chat-bubble { background: #f1f1f1; border-bottom-left-radius: 4px; }
+.chat-row.right .chat-bubble { background: var(--accent); color: #fff; border-bottom-right-radius: 4px; }
+
+.text-quote { width: 100%; padding: 20px 0; }
+.text-quote .tq-mark { font-family: var(--font-display); font-size: 5rem; color: var(--accent); line-height: .6; opacity: .4; }
+.text-quote p { font-size: 1.3rem; font-style: italic; margin: 12px 0 8px 20px; }
+.text-quote .tq-author { font-size: .85rem; color: var(--text-secondary); margin-left: 20px; }
+
+.insight-bar {
+  width: 100%; padding: 16px 24px; border-left: 4px solid var(--accent);
+  background: var(--accent-bg); border-radius: 0 8px 8px 0;
+}
+.insight-bar p { font-size: 1rem; font-weight: 500; }
+
+/* Data Components */
+.big-number { text-align: center; }
+.big-number .bn-value { font-family: var(--font-display); font-size: 5rem; font-weight: 900; color: var(--text-primary); }
+.big-number .bn-label { font-size: .9rem; color: var(--text-secondary); margin-top: 4px; }
+.big-number .bn-sub { font-size: .8rem; color: var(--positive); margin-top: 4px; }
+
+.bar-chart { width: 100%; max-width: 500px; }
+.bar-row { display: flex; align-items: center; margin-bottom: 12px; gap: 12px; }
+.bar-label { font-size: .82rem; min-width: 60px; color: var(--text-secondary); text-align: right; }
+.bar-track { flex: 1; height: 28px; background: rgba(0,0,0,.04); border-radius: 6px; overflow: hidden; position: relative; }
+.bar-fill { height: 100%; border-radius: 6px; background: var(--accent); transition: width 1s ease; }
+.bar-val { font-size: .78rem; font-weight: 600; min-width: 40px; }
+
+.progress-ring-container { display: flex; gap: 40px; align-items: center; }
+.ring-item { text-align: center; }
+.ring-item .ring-label { font-size: .82rem; color: var(--text-secondary); margin-top: 8px; }
+.ring-item .ring-value { font-family: var(--font-mono); font-size: .9rem; font-weight: 600; margin-top: 4px; }
+
+.h-progress { width: 100%; max-width: 500px; }
+.h-progress-row { margin-bottom: 16px; }
+.h-progress-top { display: flex; justify-content: space-between; margin-bottom: 6px; }
+.h-progress-label { font-size: .85rem; font-weight: 500; }
+.h-progress-val { font-size: .82rem; font-weight: 600; color: var(--accent); }
+.h-progress-track { height: 10px; background: rgba(0,0,0,.05); border-radius: 5px; overflow: hidden; }
+.h-progress-fill { height: 100%; border-radius: 5px; background: linear-gradient(90deg, var(--accent-light), var(--accent)); }
+
+.metric-row {
+  display: flex; width: 100%; justify-content: space-around;
+  border: 1px solid rgba(0,0,0,.06); border-radius: 12px; padding: 20px;
+}
+.metric-item { text-align: center; padding: 0 20px; border-right: 1px solid rgba(0,0,0,.06); }
+.metric-item:last-child { border-right: none; }
+.metric-item .m-val { font-family: var(--font-display); font-size: 1.8rem; font-weight: 900; }
+.metric-item .m-label { font-size: .78rem; color: var(--text-secondary); margin-top: 4px; }
+
+.compare-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; }
+.compare-card { padding: 24px; border-radius: 12px; border: 1px solid rgba(0,0,0,.06); }
+.compare-card .cc-label { font-size: .8rem; color: var(--text-secondary); margin-bottom: 4px; }
+.compare-card .cc-value { font-family: var(--font-display); font-size: 2rem; font-weight: 900; }
+.compare-card .cc-change { font-size: .82rem; margin-top: 6px; }
+.compare-card .cc-change.up { color: var(--positive); }
+.compare-card .cc-change.down { color: var(--negative); }
+
+.funnel { width: 100%; max-width: 400px; }
+.funnel-step { display: flex; align-items: center; margin-bottom: 8px; }
+.funnel-bar { height: 36px; background: var(--accent); border-radius: 6px; display: flex; align-items: center; padding: 0 14px; color: #fff; font-size: .82rem; font-weight: 600; transition: width 1s; }
+.funnel-label { font-size: .8rem; margin-left: 12px; color: var(--text-secondary); min-width: 80px; }
+
+.mini-metrics { display: flex; gap: 16px; flex-wrap: wrap; width: 100%; }
+.mini-metric {
+  padding: 16px 20px; border-radius: 10px; background: var(--accent-bg);
+  min-width: 140px; flex: 1;
+}
+.mini-metric .mm-label { font-size: .72rem; color: var(--text-secondary); }
+.mini-metric .mm-val { font-family: var(--font-mono); font-size: 1.2rem; font-weight: 600; margin-top: 2px; }
+
+/* Layout */
+.section-header-big {
+  display: flex; align-items: baseline; gap: 20px; width: 100%;
+}
+.section-header-big .sh-num { font-family: var(--font-display); font-size: 6rem; font-weight: 900; color: var(--accent); line-height: .9; }
+.section-header-big .sh-text h2 { font-size: 1.8rem; font-weight: 900; }
+.section-header-big .sh-text p { font-size: .9rem; color: var(--text-secondary); margin-top: 4px; }
+
+.flow-chart { display: flex; align-items: center; gap: 0; width: 100%; overflow-x: auto; }
+.flow-step {
+  padding: 16px 24px; border-radius: 10px; background: var(--accent-bg);
+  border: 1px solid var(--accent-light); text-align: center; min-width: 120px; white-space: nowrap;
+}
+.flow-step .fs-title { font-size: .9rem; font-weight: 700; }
+.flow-step .fs-desc { font-size: .72rem; color: var(--text-secondary); margin-top: 4px; }
+.flow-arrow { font-size: 1.2rem; color: var(--accent); padding: 0 8px; flex-shrink: 0; }
+
+.timeline { display: flex; width: 100%; position: relative; padding: 40px 0 0; }
+.timeline::before { content:''; position: absolute; top: 20px; left: 0; right: 0; height: 2px; background: var(--accent-light); }
+.tl-item { flex: 1; text-align: center; position: relative; }
+.tl-item::before { content:''; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); position: absolute; top: -26px; left: 50%; transform: translateX(-50%); }
+.tl-item .tl-date { font-family: var(--font-mono); font-size: .72rem; color: var(--text-secondary); margin-bottom: 4px; }
+.tl-item .tl-title { font-size: .85rem; font-weight: 700; }
+
+.cycle-container { position: relative; width: 300px; height: 300px; }
+.cycle-step {
+  position: absolute; width: 90px; height: 90px; border-radius: 50%;
+  background: var(--accent-bg); border: 2px solid var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; font-size: .72rem; font-weight: 600; padding: 8px;
+}
+
+.newspaper-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; width: 100%; }
+.news-col h4 { font-size: 1rem; font-weight: 900; margin-bottom: 8px; border-bottom: 2px solid var(--text-primary); padding-bottom: 6px; }
+.news-col p { font-size: .82rem; color: var(--text-secondary); line-height: 1.7; }
+
+.tab-panel { width: 100%; }
+.tab-nav { display: flex; gap: 4px; margin-bottom: 20px; }
+.tab-btn {
+  padding: 8px 20px; border: none; border-radius: 8px 8px 0 0;
+  background: rgba(0,0,0,.04); cursor: pointer; font-family: var(--font-body);
+  font-size: .85rem; font-weight: 500; transition: all .2s;
+}
+.tab-btn.active { background: var(--accent); color: #fff; font-weight: 700; }
+.tab-content { display: none; padding: 20px; border: 1px solid rgba(0,0,0,.06); border-radius: 0 12px 12px 12px; }
+.tab-content.active { display: block; }
+
+.fullscreen-hero {
+  width: 100%; height: 280px; border-radius: 12px; overflow: hidden;
+  background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+  display: flex; align-items: center; justify-content: center; position: relative;
+}
+.fullscreen-hero h2 {
+  font-family: var(--font-display); font-size: 3rem; font-weight: 900;
+  color: #fff; text-align: center; z-index: 1;
+}
+.fullscreen-hero .hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,179,0,.2), transparent);
+}
+
+/* Interactive */
+.coolmode-btn {
+  padding: 16px 40px; border: none; border-radius: 12px;
+  background: var(--accent); color: #fff; font-size: 1rem; font-weight: 700;
+  cursor: pointer; position: relative; overflow: visible; transition: transform .1s;
+  font-family: var(--font-body);
+}
+.coolmode-btn:active { transform: scale(.95); }
+.particle {
+  position: fixed; pointer-events: none; border-radius: 50%;
+  animation: particle-fall 1s ease-out forwards;
+}
+@keyframes particle-fall {
+  0% { opacity:1; transform:translate(0,0) scale(1); }
+  100% { opacity:0; transform:translate(var(--dx), var(--dy)) scale(0); }
+}
+
+.direction-btn {
+  padding: 14px 36px; border: 2px solid var(--text-primary); border-radius: 10px;
+  background: transparent; font-size: 1rem; font-weight: 700; cursor: pointer;
+  position: relative; overflow: hidden; transition: color .3s; font-family: var(--font-body);
+}
+.direction-btn .dir-fill {
+  position: absolute; inset: 0; background: var(--accent);
+  transform: scaleX(0); transition: transform .3s; transform-origin: left;
+}
+.direction-btn span { position: relative; z-index: 1; }
+
+.accordion { width: 100%; }
+.accordion-item { border: 1px solid rgba(0,0,0,.06); border-radius: 10px; margin-bottom: 8px; overflow: hidden; }
+.accordion-header {
+  padding: 16px 20px; cursor: pointer; font-weight: 600; font-size: .95rem;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(0,0,0,.01); transition: background .2s;
+}
+.accordion-header:hover { background: var(--accent-bg); }
+.accordion-header .acc-icon { transition: transform .3s; }
+.accordion-item.open .accordion-header .acc-icon { transform: rotate(180deg); }
+.accordion-body { max-height: 0; overflow: hidden; transition: max-height .4s ease; padding: 0 20px; }
+.accordion-item.open .accordion-body { max-height: 200px; padding: 0 20px 16px; }
+.accordion-body p { font-size: .88rem; color: var(--text-secondary); line-height: 1.6; }
+
+/* Comparison */
+.do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; }
+.do-col, .dont-col { padding: 24px; border-radius: 12px; }
+.do-col { background: rgba(102,187,106,.06); border: 1px solid rgba(102,187,106,.2); }
+.dont-col { background: rgba(239,83,80,.06); border: 1px solid rgba(239,83,80,.2); }
+.do-col h4 { color: var(--positive); margin-bottom: 12px; }
+.dont-col h4 { color: var(--negative); margin-bottom: 12px; }
+.do-col li, .dont-col li { font-size: .88rem; margin-bottom: 6px; list-style: none; padding-left: 20px; position: relative; }
+.do-col li::before { content:'✓'; position: absolute; left: 0; color: var(--positive); font-weight: 700; }
+.dont-col li::before { content:'✗'; position: absolute; left: 0; color: var(--negative); font-weight: 700; }
+
+.compare-table { width: 100%; border-collapse: collapse; }
+.compare-table th { text-align: left; padding: 12px 16px; font-size: .82rem; border-bottom: 2px solid rgba(0,0,0,.08); }
+.compare-table td { padding: 12px 16px; font-size: .85rem; border-bottom: 1px solid rgba(0,0,0,.04); }
+.compare-table .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
+.compare-table .dot.green { background: var(--positive); }
+.compare-table .dot.red { background: var(--negative); }
+.compare-table .dot.yellow { background: var(--accent); }
+
+.divider-list { width: 100%; }
+.divider-item { padding: 16px 0; border-bottom: 1px solid rgba(0,0,0,.06); display: flex; justify-content: space-between; align-items: center; }
+.divider-item:last-child { border-bottom: none; }
+.divider-item .di-text { font-size: .9rem; }
+.divider-item .di-val { font-family: var(--font-mono); font-size: .85rem; color: var(--accent); font-weight: 600; }
+
+.color-bar-list { width: 100%; }
+.color-bar-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,.04); }
+.color-bar-item .cb-bar { width: 4px; height: 36px; border-radius: 2px; background: var(--accent); }
+.color-bar-item .cb-content { flex: 1; }
+.color-bar-item .cb-title { font-size: .9rem; font-weight: 600; }
+.color-bar-item .cb-desc { font-size: .78rem; color: var(--text-secondary); }
+
+.emphasis-block {
+  width: 100%; padding: 24px 28px; border-radius: 12px;
+  background: var(--accent-bg); border-left: 4px solid var(--accent);
+}
+.emphasis-block h4 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+.emphasis-block p { font-size: .9rem; color: var(--text-secondary); }
+
+.compare-rows { width: 100%; }
+.compare-row-item { display: flex; align-items: center; gap: 16px; padding: 14px 0; border-bottom: 1px solid rgba(0,0,0,.04); }
+.compare-row-item .cr-label { font-size: .85rem; min-width: 80px; }
+.compare-row-item .cr-bar { flex: 1; height: 8px; background: rgba(0,0,0,.04); border-radius: 4px; position: relative; overflow: hidden; }
+.compare-row-item .cr-fill { height: 100%; border-radius: 4px; }
+.compare-row-item .cr-fill.pos { background: var(--positive); }
+.compare-row-item .cr-fill.neg { background: var(--negative); }
+.compare-row-item .cr-val { font-family: var(--font-mono); font-size: .8rem; font-weight: 600; min-width: 50px; text-align: right; }
+
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav-bar" id="navbar">
+  <a class="nav-item active" href="#text-effects">🔤文字动效</a>
+  <a class="nav-item" href="#cards">🃏卡片</a>
+  <a class="nav-item" href="#quotes">💬引用</a>
+  <a class="nav-item" href="#data">📊数据</a>
+  <a class="nav-item" href="#layout">📐布局</a>
+  <a class="nav-item" href="#interactive">🎛️交互</a>
+  <a class="nav-item" href="#comparison">📋对比</a>
+</nav>
+
+<!-- Header -->
+<header class="page-header">
+  <h1>PPT Design System · 55组件</h1>
+  <p class="subtitle">数据分析师专用演示设计系统 · 暖金主题演示</p>
+</header>
+
+<!-- Section: 文字动效 -->
+<section class="section" id="text-effects">
+  <h2 class="section-title">🔤 文字动效</h2>
+
+  <!-- #34 KineticText -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#34</span>
+      <span class="comp-name">KineticText 逐字符波动</span>
+      <div class="comp-tags"><span class="tag">hero大标题</span><span class="tag">封面</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="kinetic-text" id="kinetic-text"></div>
+    </div>
+  </div>
+
+  <!-- #35 ComicText -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#35</span>
+      <span class="comp-name">ComicText 漫画描边文字</span>
+      <div class="comp-tags"><span class="tag">惊喜时刻</span><span class="tag">转折</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="comic-text">数据驱动增长</div>
+    </div>
+  </div>
+
+  <!-- #36 Sparkles Text -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#36</span>
+      <span class="comp-name">Sparkles Text 星光文字</span>
+      <div class="comp-tags"><span class="tag">hero大标题</span><span class="tag">品牌名</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="sparkle-container" id="sparkle-container">
+        <span class="sparkle-text">闪耀你的数据之美</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- #37 Typing Animation -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#37</span>
+      <span class="comp-name">Typing Animation 打字机</span>
+      <div class="comp-tags"><span class="tag">hero</span><span class="tag">首屏标语</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="typing-text"><span id="typing-output"></span><span class="typing-cursor"></span></div>
+    </div>
+  </div>
+
+  <!-- #38 Morphing Text -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#38</span>
+      <span class="comp-name">Morphing Text 文字变形</span>
+      <div class="comp-tags"><span class="tag">封面</span><span class="tag">slogan轮播</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="morph-text">我们追求 <span class="morph-word" id="morph-word" style="color:var(--accent)">卓越</span></div>
+    </div>
+  </div>
+
+  <!-- #25 高亮标记文字 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#25</span>
+      <span class="comp-name">高亮标记文字</span>
+      <div class="comp-tags"><span class="tag">正文强调</span><span class="tag">关键词</span></div>
+    </div>
+    <div class="comp-body">
+      <p class="highlight-text">在过去一年中，我们的<mark>用户增长率达到了 247%</mark>，这得益于团队持续的产品优化和<mark>精准的市场定位策略</mark>。未来我们将继续深耕用户体验，打造行业标杆产品。</p>
+    </div>
+  </div>
+
+  <!-- #55 Text Highlighter -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#55</span>
+      <span class="comp-name">Text Highlighter 多处标注</span>
+      <div class="comp-tags"><span class="tag">正文重点</span><span class="tag">多处高亮</span></div>
+    </div>
+    <div class="comp-body">
+      <p class="highlight-text multi-highlight">数据分析的核心在于<span class="hl">发现规律</span>、<span class="hl">验证假设</span>和<span class="hl">驱动决策</span>。我们通过建立<span class="hl">用户行为模型</span>，成功将转化率提升了 35%，同时降低了获客成本。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section: 卡片 -->
+<section class="section" id="cards">
+  <h2 class="section-title">🃏 卡片</h2>
+
+  <!-- #39 杂志裁切风卡片 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#39</span>
+      <span class="comp-name">杂志裁切风卡片</span>
+      <div class="comp-tags"><span class="tag">功能展示</span><span class="tag">核心卖点</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="magazine-grid">
+        <div class="magazine-card">
+          <h3>智能数据洞察</h3>
+          <p>通过 AI 算法自动发现数据中的异常和趋势，帮助分析师快速定位关键问题。</p>
+          <span class="en-label">INSIGHT</span>
+        </div>
+        <div class="magazine-card">
+          <h3>实时协作看板</h3>
+          <p>多人同时编辑数据报告，自动同步图表变更，团队协作效率提升 60%。</p>
+          <span class="en-label">COLLABORATE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #40 编号主导卡片 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#40</span>
+      <span class="comp-name">编号主导卡片</span>
+      <div class="comp-tags"><span class="tag">步骤列表</span><span class="tag">要点</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="numbered-cards">
+        <div class="numbered-card">
+          <div class="big-num">01</div>
+          <h4>数据采集</h4>
+          <p>多渠道埋点覆盖，确保数据完整性和准确性</p>
+        </div>
+        <div class="numbered-card">
+          <div class="big-num">02</div>
+          <h4>清洗建模</h4>
+          <p>自动化 ETL 流程，构建标准化数据仓库</p>
+        </div>
+        <div class="numbered-card">
+          <div class="big-num">03</div>
+          <h4>可视呈现</h4>
+          <p>交互式仪表盘，让数据讲述业务故事</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #54 编号卡片网格 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#54</span>
+      <span class="comp-name">编号卡片网格</span>
+      <div class="comp-tags"><span class="tag">并列任务</span><span class="tag">四要点</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="grid-2x2">
+        <div class="g-card"><div class="g-num">01</div><div class="g-content"><h4>用户画像</h4><p>精细化人群分层，识别高价值用户群</p></div></div>
+        <div class="g-card"><div class="g-num">02</div><div class="g-content"><h4>行为分析</h4><p>追踪关键路径，优化产品使用体验</p></div></div>
+        <div class="g-card"><div class="g-num">03</div><div class="g-content"><h4>归因模型</h4><p>多触点归因，量化各渠道贡献度</p></div></div>
+        <div class="g-card"><div class="g-num">04</div><div class="g-content"><h4>预测引擎</h4><p>机器学习驱动，提前预判业务走势</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #53 悬停揭示卡片 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#53</span>
+      <span class="comp-name">悬停揭示卡片</span>
+      <div class="comp-tags"><span class="tag">概念解释</span><span class="tag">互动</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="reveal-cards">
+        <div class="reveal-card"><h4>ROI</h4><div class="reveal-def">投资回报率，衡量每一元投入带来的收益产出</div></div>
+        <div class="reveal-card"><h4>LTV</h4><div class="reveal-def">用户生命周期价值，预估用户全生命周期的总贡献</div></div>
+        <div class="reveal-card"><h4>CAC</h4><div class="reveal-def">客户获取成本，获得一个新客户所需的平均花费</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #1 KPI单卡 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#1</span>
+      <span class="comp-name">KPI单卡 (带趋势)</span>
+      <div class="comp-tags"><span class="tag">数据报告</span><span class="tag">述职</span></div>
+    </div>
+    <div class="comp-body" style="gap:20px; flex-wrap:wrap;">
+      <div class="kpi-card">
+        <div class="kpi-label">月活跃用户</div>
+        <div class="kpi-value">1.28M</div>
+        <div class="kpi-trend up">↑ 12.5% 环比增长</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">转化率</div>
+        <div class="kpi-value">4.7%</div>
+        <div class="kpi-trend up">↑ 0.8pp 较上月</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">客单价</div>
+        <div class="kpi-value">¥286</div>
+        <div class="kpi-trend down">↓ 3.2% 环比下降</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section: 引用/金句 -->
+<section class="section" id="quotes">
+  <h2 class="section-title">💬 引用 / 金句</h2>
+
+  <!-- #50 Pull Quote -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#50</span>
+      <span class="comp-name">Pull Quote 大字引用</span>
+      <div class="comp-tags"><span class="tag">金句</span><span class="tag">单句强调</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="pull-quote">
+        <span class="big-quote">"</span>
+        <p>数据不会说谎，但解读数据的人需要智慧。</p>
+        <div class="quote-author">— 某资深数据分析师</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #51 Key Insight -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#51</span>
+      <span class="comp-name">Key Insight 手写批注风</span>
+      <div class="comp-tags"><span class="tag">洞察</span><span class="tag">结论</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="insight-box">
+        <span class="insight-label">💡 Key Insight</span>
+        <p>用户流失的核心原因并非价格，而是第7天的功能引导缺失导致的价值感知断层。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- #41 对话气泡 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#41</span>
+      <span class="comp-name">对话气泡</span>
+      <div class="comp-tags"><span class="tag">AI对话</span><span class="tag">用户反馈</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="chat-bubbles">
+        <div class="chat-row left"><div class="chat-bubble">帮我分析一下上个月的用户留存数据</div></div>
+        <div class="chat-row right"><div class="chat-bubble">好的，11月7日留存率为42.3%，较10月提升5.1个百分点，主要归因于新手引导优化。</div></div>
+        <div class="chat-row left"><div class="chat-bubble">有哪些可以继续提升的方向？</div></div>
+        <div class="chat-row right"><div class="chat-bubble">建议关注第3天的社交功能引导，当前该节点流失率仍达28%。</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #18 纯文字引用 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#18</span>
+      <span class="comp-name">纯文字引用</span>
+      <div class="comp-tags"><span class="tag">引用</span><span class="tag">金句</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="text-quote">
+        <div class="tq-mark">"</div>
+        <p>不是大数据改变了世界，而是提出正确问题的能力，赋予了数据改变世界的力量。</p>
+        <div class="tq-author">— Patrick Collison, Stripe CEO</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #3 洞察条 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#3</span>
+      <span class="comp-name">洞察条</span>
+      <div class="comp-tags"><span class="tag">数据页必备</span><span class="tag">结论</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="insight-bar">
+        <p>💡 核心发现：高频用户（周均使用≥5次）的NPS得分达到72，是低频用户的2.4倍，且付费转化率高出180%。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section: 数据 -->
+<section class="section" id="data">
+  <h2 class="section-title">📊 数据</h2>
+
+  <!-- #15 数据大字 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#15</span>
+      <span class="comp-name">数据大字 (独立)</span>
+      <div class="comp-tags"><span class="tag">核心KPI</span><span class="tag">冲击力</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="big-number">
+        <div class="bn-value">2,847万</div>
+        <div class="bn-label">2024年度总营收</div>
+        <div class="bn-sub">↑ 同比增长 64%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #4 简易柱状图 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#4</span>
+      <span class="comp-name">简易柱状图</span>
+      <div class="comp-tags"><span class="tag">趋势分析</span><span class="tag">季度报告</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="bar-chart">
+        <div class="bar-row"><span class="bar-label">Q1</span><div class="bar-track"><div class="bar-fill" style="width:45%"></div></div><span class="bar-val">450万</span></div>
+        <div class="bar-row"><span class="bar-label">Q2</span><div class="bar-track"><div class="bar-fill" style="width:62%"></div></div><span class="bar-val">620万</span></div>
+        <div class="bar-row"><span class="bar-label">Q3</span><div class="bar-track"><div class="bar-fill" style="width:78%"></div></div><span class="bar-val">780万</span></div>
+        <div class="bar-row"><span class="bar-label">Q4</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bar-val">997万</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #5 进度环 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#5</span>
+      <span class="comp-name">进度环</span>
+      <div class="comp-tags"><span class="tag">完成度</span><span class="tag">目标达成</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="progress-ring-container">
+        <div class="ring-item">
+          <svg width="100" height="100" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(0,0,0,.06)" stroke-width="8"/>
+            <circle cx="50" cy="50" r="40" fill="none" stroke="#ffb300" stroke-width="8" stroke-dasharray="251.2" stroke-dashoffset="50.24" stroke-linecap="round" transform="rotate(-90 50 50)"/>
+          </svg>
+          <div class="ring-label">营收目标</div>
+          <div class="ring-value">80%</div>
+        </div>
+        <div class="ring-item">
+          <svg width="100" height="100" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(0,0,0,.06)" stroke-width="8"/>
+            <circle cx="50" cy="50" r="40" fill="none" stroke="#66bb6a" stroke-width="8" stroke-dasharray="251.2" stroke-dashoffset="25.12" stroke-linecap="round" transform="rotate(-90 50 50)"/>
+          </svg>
+          <div class="ring-label">用户增长</div>
+          <div class="ring-value">90%</div>
+        </div>
+        <div class="ring-item">
+          <svg width="100" height="100" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(0,0,0,.06)" stroke-width="8"/>
+            <circle cx="50" cy="50" r="40" fill="none" stroke="#ef5350" stroke-width="8" stroke-dasharray="251.2" stroke-dashoffset="138.16" stroke-linecap="round" transform="rotate(-90 50 50)"/>
+          </svg>
+          <div class="ring-label">成本控制</div>
+          <div class="ring-value">45%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #29 横向进度条 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#29</span>
+      <span class="comp-name">横向进度条</span>
+      <div class="comp-tags"><span class="tag">对比</span><span class="tag">进度</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="h-progress">
+        <div class="h-progress-row">
+          <div class="h-progress-top"><span class="h-progress-label">产品研发</span><span class="h-progress-val">85%</span></div>
+          <div class="h-progress-track"><div class="h-progress-fill" style="width:85%"></div></div>
+        </div>
+        <div class="h-progress-row">
+          <div class="h-progress-top"><span class="h-progress-label">市场推广</span><span class="h-progress-val">62%</span></div>
+          <div class="h-progress-track"><div class="h-progress-fill" style="width:62%"></div></div>
+        </div>
+        <div class="h-progress-row">
+          <div class="h-progress-top"><span class="h-progress-label">客户成功</span><span class="h-progress-val">93%</span></div>
+          <div class="h-progress-track"><div class="h-progress-fill" style="width:93%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #19 指标行 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#19</span>
+      <span class="comp-name">指标行 (竖线分隔)</span>
+      <div class="comp-tags"><span class="tag">概览页</span><span class="tag">底部总结</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="metric-row">
+        <div class="metric-item"><div class="m-val">1.28M</div><div class="m-label">月活用户</div></div>
+        <div class="metric-item"><div class="m-val">4.7%</div><div class="m-label">转化率</div></div>
+        <div class="metric-item"><div class="m-val">¥286</div><div class="m-label">客单价</div></div>
+        <div class="metric-item"><div class="m-val">72</div><div class="m-label">NPS</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #2 数据对比卡 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#2</span>
+      <span class="comp-name">数据对比卡 (正/负)</span>
+      <div class="comp-tags"><span class="tag">对比分析</span><span class="tag">数据报告</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="compare-cards">
+        <div class="compare-card">
+          <div class="cc-label">本月新增用户</div>
+          <div class="cc-value">52,847</div>
+          <div class="cc-change up">↑ 23.4% 环比增长</div>
+        </div>
+        <div class="compare-card">
+          <div class="cc-label">本月流失用户</div>
+          <div class="cc-value">8,123</div>
+          <div class="cc-change down">↑ 5.2% 环比上升</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #7 漏斗图 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#7</span>
+      <span class="comp-name">漏斗图</span>
+      <div class="comp-tags"><span class="tag">转化分析</span><span class="tag">漏斗</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="funnel">
+        <div class="funnel-step"><div class="funnel-bar" style="width:100%">100%</div><span class="funnel-label">页面访问</span></div>
+        <div class="funnel-step"><div class="funnel-bar" style="width:68%">68%</div><span class="funnel-label">注册开始</span></div>
+        <div class="funnel-step"><div class="funnel-bar" style="width:45%">45%</div><span class="funnel-label">注册完成</span></div>
+        <div class="funnel-step"><div class="funnel-bar" style="width:28%">28%</div><span class="funnel-label">首次使用</span></div>
+        <div class="funnel-step"><div class="funnel-bar" style="width:12%">12%</div><span class="funnel-label">付费转化</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #31 迷你指标组 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#31</span>
+      <span class="comp-name">迷你指标组</span>
+      <div class="comp-tags"><span class="tag">底部补充</span><span class="tag">概览</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="mini-metrics">
+        <div class="mini-metric"><div class="mm-label">DAU</div><div class="mm-val">43.2K</div></div>
+        <div class="mini-metric"><div class="mm-label">人均时长</div><div class="mm-val">8.5min</div></div>
+        <div class="mini-metric"><div class="mm-label">次日留存</div><div class="mm-val">42.3%</div></div>
+        <div class="mini-metric"><div class="mm-label">ARPU</div><div class="mm-val">¥18.6</div></div>
+        <div class="mini-metric"><div class="mm-label">崩溃率</div><div class="mm-val">0.12%</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section: 布局/结构 -->
+<section class="section" id="layout">
+  <h2 class="section-title">📐 布局 / 结构</h2>
+
+  <!-- #47 Section Header大编号 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#47</span>
+      <span class="comp-name">Section Header 大编号</span>
+      <div class="comp-tags"><span class="tag">章节标题</span><span class="tag">分隔</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="section-header-big">
+        <div class="sh-num">03</div>
+        <div class="sh-text">
+          <h2>增长策略分析</h2>
+          <p>基于用户行为数据，制定下一阶段核心增长策略与落地路径</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #6 横向流程图 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#6</span>
+      <span class="comp-name">横向流程图</span>
+      <div class="comp-tags"><span class="tag">流程说明</span><span class="tag">技术架构</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="flow-chart">
+        <div class="flow-step"><div class="fs-title">数据采集</div><div class="fs-desc">SDK + API</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="fs-title">数据清洗</div><div class="fs-desc">ETL Pipeline</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="fs-title">存储建模</div><div class="fs-desc">Data Warehouse</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="fs-title">分析计算</div><div class="fs-desc">OLAP Engine</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="fs-title">可视化</div><div class="fs-desc">Dashboard</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #48 横向时间线 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#48</span>
+      <span class="comp-name">横向时间线</span>
+      <div class="comp-tags"><span class="tag">里程碑</span><span class="tag">述职</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-date">2024 Q1</div><div class="tl-title">产品立项</div></div>
+        <div class="tl-item"><div class="tl-date">2024 Q2</div><div class="tl-title">MVP上线</div></div>
+        <div class="tl-item"><div class="tl-date">2024 Q3</div><div class="tl-title">用户破万</div></div>
+        <div class="tl-item"><div class="tl-date">2024 Q4</div><div class="tl-title">商业化</div></div>
+        <div class="tl-item"><div class="tl-date">2025 Q1</div><div class="tl-title">国际化</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #49 圆形步骤循环 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#49</span>
+      <span class="comp-name">圆形步骤循环</span>
+      <div class="comp-tags"><span class="tag">闭环逻辑</span><span class="tag">流程</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="cycle-container">
+        <div class="cycle-step" style="top:0;left:50%;transform:translateX(-50%)">采集</div>
+        <div class="cycle-step" style="top:35%;right:0">分析</div>
+        <div class="cycle-step" style="bottom:0;left:50%;transform:translateX(-50%)">行动</div>
+        <div class="cycle-step" style="top:35%;left:0">验证</div>
+        <svg width="300" height="300" style="position:absolute;top:0;left:0;pointer-events:none">
+          <circle cx="150" cy="150" r="110" fill="none" stroke="var(--accent-light)" stroke-width="2" stroke-dasharray="6 4"/>
+          <polygon points="205,50 215,55 208,60" fill="var(--accent)"/>
+          <polygon points="255,200 250,210 245,200" fill="var(--accent)"/>
+          <polygon points="95,250 85,245 92,240" fill="var(--accent)"/>
+          <polygon points="45,100 50,90 55,100" fill="var(--accent)"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- #43 报纸多栏排版 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#43</span>
+      <span class="comp-name">报纸多栏排版</span>
+      <div class="comp-tags"><span class="tag">信息密度高</span><span class="tag">数据报告</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="newspaper-cols">
+        <div class="news-col">
+          <h4>用户增长</h4>
+          <p>本季度新增注册用户52万，其中自然流量占比68%。社交裂变贡献了22%的新增，付费获客成本降至¥12.3，较上季度下降18%。</p>
+        </div>
+        <div class="news-col">
+          <h4>产品迭代</h4>
+          <p>完成3个大版本迭代，新增智能推荐引擎和实时协作功能。用户满意度从3.8提升至4.5星，功能使用率top3：数据看板、自动报告、预警通知。</p>
+        </div>
+        <div class="news-col">
+          <h4>商业化进展</h4>
+          <p>企业版签约客户达127家，平均合同金额¥28万/年。续约率96.3%，NRR达到132%。免费转付费率稳定在4.7%。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #45 Tab切换面板 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#45</span>
+      <span class="comp-name">Tab切换面板</span>
+      <div class="comp-tags"><span class="tag">分类展示</span><span class="tag">多维度</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="tab-panel">
+        <div class="tab-nav">
+          <button class="tab-btn active" onclick="switchTab(event, 'tab-1')">用户数据</button>
+          <button class="tab-btn" onclick="switchTab(event, 'tab-2')">收入数据</button>
+          <button class="tab-btn" onclick="switchTab(event, 'tab-3')">产品数据</button>
+        </div>
+        <div class="tab-content active" id="tab-1">
+          <p><strong>月活用户：</strong>128万 ｜ <strong>日活用户：</strong>43.2万 ｜ <strong>次日留存：</strong>42.3%</p>
+          <p style="margin-top:8px;color:var(--text-secondary);font-size:.85rem">用户增长趋势平稳，留存率持续优化中</p>
+        </div>
+        <div class="tab-content" id="tab-2">
+          <p><strong>月度营收：</strong>¥847万 ｜ <strong>ARPU：</strong>¥18.6 ｜ <strong>毛利率：</strong>72%</p>
+          <p style="margin-top:8px;color:var(--text-secondary);font-size:.85rem">收入结构健康，企业版收入占比持续增长</p>
+        </div>
+        <div class="tab-content" id="tab-3">
+          <p><strong>功能使用率：</strong>73% ｜ <strong>崩溃率：</strong>0.12% ｜ <strong>加载时间：</strong>1.2s</p>
+          <p style="margin-top:8px;color:var(--text-secondary);font-size:.85rem">核心体验指标均达到行业领先水平</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #44 全屏大片压字 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#44</span>
+      <span class="comp-name">全屏大片压字</span>
+      <div class="comp-tags"><span class="tag">封面</span><span class="tag">章节分隔</span></div>
+    </div>
+    <div class="comp-body" style="padding:0">
+      <div class="fullscreen-hero">
+        <div class="hero-overlay"></div>
+        <h2>数据驱动<br>未来已来</h2>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section: 交互 -->
+<section class="section" id="interactive">
+  <h2 class="section-title">🎛️ 交互</h2>
+
+  <!-- #32 CoolMode粒子按钮 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#32</span>
+      <span class="comp-name">CoolMode 粒子按钮</span>
+      <div class="comp-tags"><span class="tag">CTA按钮</span><span class="tag">互动彩蛋</span></div>
+    </div>
+    <div class="comp-body">
+      <button class="coolmode-btn" id="coolmode-btn">✨ 点击我，释放粒子</button>
+    </div>
+  </div>
+
+  <!-- #33 方向感知填充按钮 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#33</span>
+      <span class="comp-name">方向感知填充按钮</span>
+      <div class="comp-tags"><span class="tag">导航按钮</span><span class="tag">标签切换</span></div>
+    </div>
+    <div class="comp-body" style="gap:16px; flex-wrap:wrap;">
+      <button class="direction-btn" onmouseenter="dirEnter(event)" onmouseleave="dirLeave(event)"><div class="dir-fill"></div><span>查看报告</span></button>
+      <button class="direction-btn" onmouseenter="dirEnter(event)" onmouseleave="dirLeave(event)"><div class="dir-fill"></div><span>下载数据</span></button>
+      <button class="direction-btn" onmouseenter="dirEnter(event)" onmouseleave="dirLeave(event)"><div class="dir-fill"></div><span>开始分析</span></button>
+    </div>
+  </div>
+
+  <!-- #46 手风琴展开 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#46</span>
+      <span class="comp-name">手风琴展开</span>
+      <div class="comp-tags"><span class="tag">FAQ</span><span class="tag">详细说明</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="accordion">
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">数据报告支持哪些导出格式？<span class="acc-icon">▾</span></div>
+          <div class="accordion-body"><p>支持 PDF、Excel、PNG 和在线分享链接四种格式。企业版额外支持 PowerPoint 和自定义模板导出。</p></div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">如何保障数据安全与隐私？<span class="acc-icon">▾</span></div>
+          <div class="accordion-body"><p>采用 AES-256 加密存储，传输层使用 TLS 1.3，支持 RBAC 权限管理和操作审计日志，符合 GDPR 和等保三级标准。</p></div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">免费版和付费版有什么区别？<span class="acc-icon">▾</span></div>
+          <div class="accordion-body"><p>免费版支持5个数据源接入和基础图表；付费版解锁无限数据源、AI 智能分析、团队协作和自定义品牌模板。</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #53 悬停揭示 (引用) -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#53</span>
+      <span class="comp-name">悬停揭示 (引用卡片分类)</span>
+      <div class="comp-tags"><span class="tag">概念解释</span><span class="tag">互动</span></div>
+    </div>
+    <div class="comp-body">
+      <p style="font-size:.9rem; color:var(--text-secondary); text-align:center;">↑ 已在「卡片」分类中展示完整效果</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section: 对比/列表 -->
+<section class="section" id="comparison">
+  <h2 class="section-title">📋 对比 / 列表</h2>
+
+  <!-- #42 Do/Don't对比 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#42</span>
+      <span class="comp-name">Do / Don't 对比</span>
+      <div class="comp-tags"><span class="tag">规范</span><span class="tag">正反例</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="do-dont">
+        <div class="do-col">
+          <h4>✓ Do 推荐做法</h4>
+          <ul>
+            <li>用数据支撑每一个结论</li>
+            <li>图表标注清晰的坐标轴和单位</li>
+            <li>使用对比色区分正负趋势</li>
+            <li>提供可操作的 Next Steps</li>
+          </ul>
+        </div>
+        <div class="dont-col">
+          <h4>✗ Don't 避免做法</h4>
+          <ul>
+            <li>堆砌数据缺乏解读</li>
+            <li>使用3D图表和过多装饰</li>
+            <li>遗漏数据来源和时间范围</li>
+            <li>结论模糊没有归因分析</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #52 对比表 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#52</span>
+      <span class="comp-name">对比表 (圆点标识)</span>
+      <div class="comp-tags"><span class="tag">方案对比</span><span class="tag">数据报告</span></div>
+    </div>
+    <div class="comp-body">
+      <table class="compare-table">
+        <thead><tr><th>维度</th><th>方案 A</th><th>方案 B</th><th>方案 C</th></tr></thead>
+        <tbody>
+          <tr><td>成本</td><td><span class="dot green"></span>低</td><td><span class="dot yellow"></span>中</td><td><span class="dot red"></span>高</td></tr>
+          <tr><td>速度</td><td><span class="dot yellow"></span>中</td><td><span class="dot green"></span>快</td><td><span class="dot green"></span>快</td></tr>
+          <tr><td>扩展性</td><td><span class="dot red"></span>差</td><td><span class="dot yellow"></span>中</td><td><span class="dot green"></span>强</td></tr>
+          <tr><td>维护难度</td><td><span class="dot green"></span>易</td><td><span class="dot yellow"></span>中</td><td><span class="dot red"></span>难</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- #16 分割线条目 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#16</span>
+      <span class="comp-name">分割线条目</span>
+      <div class="comp-tags"><span class="tag">列表</span><span class="tag">枚举</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="divider-list">
+        <div class="divider-item"><span class="di-text">用户注册转化率</span><span class="di-val">45.2%</span></div>
+        <div class="divider-item"><span class="di-text">首次使用完成率</span><span class="di-val">72.8%</span></div>
+        <div class="divider-item"><span class="di-text">7日留存率</span><span class="di-val">38.5%</span></div>
+        <div class="divider-item"><span class="di-text">付费转化率</span><span class="di-val">4.7%</span></div>
+        <div class="divider-item"><span class="di-text">客户满意度 (CSAT)</span><span class="di-val">4.5/5</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #20 左侧竖色条标记 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#20</span>
+      <span class="comp-name">左侧竖色条标记</span>
+      <div class="comp-tags"><span class="tag">要点标记</span><span class="tag">结论</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="color-bar-list">
+        <div class="color-bar-item"><div class="cb-bar"></div><div class="cb-content"><div class="cb-title">核心发现一</div><div class="cb-desc">高频用户的LTV是低频用户的3.2倍，值得重点维护</div></div></div>
+        <div class="color-bar-item"><div class="cb-bar" style="background:var(--positive)"></div><div class="cb-content"><div class="cb-title">核心发现二</div><div class="cb-desc">社交裂变渠道的ROI最高，CAC仅为¥8.5</div></div></div>
+        <div class="color-bar-item"><div class="cb-bar" style="background:var(--negative)"></div><div class="cb-content"><div class="cb-title">风险预警</div><div class="cb-desc">第三天留存率连续两个月下降，需要紧急关注</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #17 文字强调块 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#17</span>
+      <span class="comp-name">文字强调块</span>
+      <div class="comp-tags"><span class="tag">结论</span><span class="tag">重要观点</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="emphasis-block">
+        <h4>📌 核心结论</h4>
+        <p>综合以上数据分析，建议将Q2预算的40%投入到用户留存优化项目，预计可带来¥320万的增量收入，投资回报周期约为4.5个月。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- #30 对比数据行 -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <span class="comp-number">#30</span>
+      <span class="comp-name">对比数据行</span>
+      <div class="comp-tags"><span class="tag">正负对比</span><span class="tag">进度</span></div>
+    </div>
+    <div class="comp-body">
+      <div class="compare-rows">
+        <div class="compare-row-item">
+          <span class="cr-label">用户增长</span>
+          <div class="cr-bar"><div class="cr-fill pos" style="width:78%"></div></div>
+          <span class="cr-val" style="color:var(--positive)">+78%</span>
+        </div>
+        <div class="compare-row-item">
+          <span class="cr-label">营收增长</span>
+          <div class="cr-bar"><div class="cr-fill pos" style="width:64%"></div></div>
+          <span class="cr-val" style="color:var(--positive)">+64%</span>
+        </div>
+        <div class="compare-row-item">
+          <span class="cr-label">成本变化</span>
+          <div class="cr-bar"><div class="cr-fill neg" style="width:23%"></div></div>
+          <span class="cr-val" style="color:var(--negative)">+23%</span>
+        </div>
+        <div class="compare-row-item">
+          <span class="cr-label">流失率</span>
+          <div class="cr-bar"><div class="cr-fill pos" style="width:15%"></div></div>
+          <span class="cr-val" style="color:var(--positive)">-15%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer style="text-align:center; padding:48px 32px; color:var(--text-secondary); font-size:.82rem;">
+  <p>PPT Design System · 55 Components · Built with ❤️ for Data Analysts</p>
+  <p style="margin-top:4px; opacity:.6;">暖金主题 · Warm Gold Theme</p>
+</footer>
+
+<script>
+// === KineticText (#34) ===
+(function() {
+  const text = "数据驱动决策";
+  const container = document.getElementById('kinetic-text');
+  text.split('').forEach((char, i) => {
+    const span = document.createElement('span');
+    span.textContent = char;
+    span.style.animationDelay = (i * 0.1) + 's';
+    container.appendChild(span);
+  });
+})();
+
+// === Sparkles (#36) ===
+(function() {
+  const container = document.getElementById('sparkle-container');
+  function createSparkle() {
+    const sparkle = document.createElement('div');
+    sparkle.className = 'sparkle';
+    sparkle.style.left = Math.random() * 100 + '%';
+    sparkle.style.top = Math.random() * 100 + '%';
+    sparkle.style.animationDelay = Math.random() * 2 + 's';
+    sparkle.style.width = (4 + Math.random() * 8) + 'px';
+    sparkle.style.height = sparkle.style.width;
+    container.appendChild(sparkle);
+    setTimeout(() => sparkle.remove(), 2000);
+  }
+  setInterval(createSparkle, 300);
+  for(let i=0;i<5;i++) setTimeout(createSparkle, i*200);
+})();
+
+// === Typing Animation (#37) ===
+(function() {
+  const phrases = ["让数据讲述业务故事", "用洞察驱动增长决策", "构建数据驱动的文化"];
+  let phraseIdx = 0, charIdx = 0, isDeleting = false;
+  const output = document.getElementById('typing-output');
+  function type() {
+    const current = phrases[phraseIdx];
+    if (!isDeleting) {
+      output.textContent = current.substring(0, charIdx + 1);
+      charIdx++;
+      if (charIdx === current.length) { setTimeout(() => { isDeleting = true; type(); }, 2000); return; }
+    } else {
+      output.textContent = current.substring(0, charIdx - 1);
+      charIdx--;
+      if (charIdx === 0) { isDeleting = false; phraseIdx = (phraseIdx + 1) % phrases.length; }
+    }
+    setTimeout(type, isDeleting ? 50 : 100);
+  }
+  type();
+})();
+
+// === Morphing Text (#38) ===
+(function() {
+  const words = ["卓越", "创新", "效率", "增长", "突破"];
+  let idx = 0;
+  const el = document.getElementById('morph-word');
+  setInterval(() => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(-10px)';
+    setTimeout(() => {
+      idx = (idx + 1) % words.length;
+      el.textContent = words[idx];
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+    }, 400);
+  }, 2500);
+  el.style.transition = 'all .4s ease';
+})();
+
+// === Tab Panel (#45) ===
+function switchTab(e, tabId) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  e.target.classList.add('active');
+  document.getElementById(tabId).classList.add('active');
+}
+
+// === CoolMode Button (#32) ===
+document.getElementById('coolmode-btn').addEventListener('click', function(e) {
+  const colors = ['#ffb300','#ff6b6b','#51cf66','#339af0','#cc5de8','#ff922b'];
+  const rect = this.getBoundingClientRect();
+  const cx = rect.left + rect.width/2;
+  const cy = rect.top + rect.height/2;
+  for(let i=0; i<20; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = 6 + Math.random()*10;
+    const angle = Math.random() * Math.PI * 2;
+    const dist = 40 + Math.random()*80;
+    p.style.width = size+'px';
+    p.style.height = size+'px';
+    p.style.background = colors[Math.floor(Math.random()*colors.length)];
+    p.style.left = cx+'px';
+    p.style.top = cy+'px';
+    p.style.setProperty('--dx', Math.cos(angle)*dist+'px');
+    p.style.setProperty('--dy', (Math.sin(angle)*dist - 40)+'px');
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 1000);
+  }
+});
+
+// === Direction-aware Button (#33) ===
+function dirEnter(e) {
+  const btn = e.currentTarget;
+  const fill = btn.querySelector('.dir-fill');
+  const rect = btn.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const w = rect.width;
+  if(x < w/2) { fill.style.transformOrigin = 'left'; }
+  else { fill.style.transformOrigin = 'right'; }
+  fill.style.transform = 'scaleX(1)';
+  btn.style.color = '#fff';
+}
+function dirLeave(e) {
+  const btn = e.currentTarget;
+  const fill = btn.querySelector('.dir-fill');
+  fill.style.transform = 'scaleX(0)';
+  btn.style.color = '';
+}
+
+// === Accordion (#46) ===
+function toggleAccordion(header) {
+  const item = header.parentElement;
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+
+// === Smooth Scroll Navigation ===
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if(target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// === Active Nav on Scroll ===
+const sections = document.querySelectorAll('.section');
+const navItems = document.querySelectorAll('.nav-item');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting) {
+      navItems.forEach(n => n.classList.remove('active'));
+      const id = entry.target.id;
+      const active = document.querySelector('.nav-item[href="#'+id+'"]');
+      if(active) active.classList.add('active');
+    }
+  });
+}, { threshold: 0.2, rootMargin: '-80px 0px -60% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

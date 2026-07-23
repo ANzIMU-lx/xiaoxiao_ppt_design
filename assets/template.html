@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>演示标题</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;600&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ===== 主题变量（替换此块切换主题，见 references/themes.md）===== */
+:root {
+  --bg-dark-start:#1a1a1a; --bg-dark-end:#2d2d2d;
+  --bg-light-start:#fffdf5; --bg-light-end:#ffecb3;
+  --accent:#ffb300; --accent-light:#ffe082; --accent-bg:#fff8e1;
+  --text-primary:#1a1a1a; --text-secondary:#5d4037;
+  --text-dark-secondary:#9e9e9e;
+  --title-gradient:linear-gradient(135deg,#fff,#ffe082);
+  --divider:#f0e6c8;
+  --positive:#66bb6a; --negative:#ef5350;
+}
+
+/* ===== 基础重置 ===== */
+*{margin:0;padding:0;box-sizing:border-box}
+::selection{background:var(--accent-light);color:var(--text-primary)}
+body{font-family:'Noto Sans SC',sans-serif;background:var(--bg-dark-start);overflow:hidden;-webkit-font-smoothing:antialiased}
+.slide-container{width:100vw;height:100vh;position:relative;overflow:hidden}
+.slide{width:100%;height:100%;position:absolute;top:0;left:0;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .8s cubic-bezier(.4,0,.2,1)}
+.slide.active{opacity:1;pointer-events:all}
+
+/* ===== 入场动画 ===== */
+.anim-fade-up{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease}
+.anim-fade-down{opacity:0;transform:translateY(-30px);transition:opacity .7s ease,transform .7s ease}
+.anim-fade-left{opacity:0;transform:translateX(-40px);transition:opacity .7s ease,transform .7s ease}
+.anim-fade-right{opacity:0;transform:translateX(40px);transition:opacity .7s ease,transform .7s ease}
+.anim-scale{opacity:0;transform:scale(.88);transition:opacity .6s ease,transform .6s cubic-bezier(.34,1.56,.64,1)}
+.anim-blur{opacity:0;filter:blur(8px);transition:opacity .7s ease,filter .7s ease}
+.slide.active .anim-fade-up,.slide.active .anim-fade-down,
+.slide.active .anim-fade-left,.slide.active .anim-fade-right,
+.slide.active .anim-scale,.slide.active .anim-blur{opacity:1;transform:translate(0) scale(1);filter:blur(0)}
+
+/* 延迟类 */
+.delay-1{transition-delay:.1s}.delay-2{transition-delay:.2s}.delay-3{transition-delay:.35s}
+.delay-4{transition-delay:.5s}.delay-5{transition-delay:.65s}.delay-6{transition-delay:.8s}
+.delay-7{transition-delay:.95s}.delay-8{transition-delay:1.1s}
+
+/* ===== 装饰动画 ===== */
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes pulse-glow{0%,100%{box-shadow:0 0 0 0 rgba(255,179,0,.4)}50%{box-shadow:0 0 20px 4px rgba(255,179,0,.15)}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+.float-anim{animation:float 3s ease-in-out infinite}
+.pulse-anim{animation:pulse-glow 2.5s ease-in-out infinite}
+
+/* ===== SVG图标 ===== */
+.icon-wrap{display:inline-flex;align-items:center;justify-content:center}
+.icon-wrap svg{stroke-linecap:round;stroke-linejoin:round;fill:none}
+
+/* ===== 大数字步骤 ===== */
+.step-number{font-family:'Playfair Display',serif;font-size:clamp(3.5rem,9vw,5.5rem);font-weight:900;color:transparent;-webkit-text-stroke:2px var(--accent);line-height:1;min-width:90px}
+.step-row{display:flex;align-items:flex-start;gap:28px;padding:24px 0;border-bottom:1px solid var(--divider)}
+.step-row:last-child{border-bottom:none}
+
+/* ===== 卡片基础形态 ===== */
+.card-float{background:#fff;border-radius:16px;box-shadow:0 4px 16px rgba(0,0,0,.04);transition:transform .3s,box-shadow .3s}
+.card-float:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.card-outlined{background:transparent;border:1.5px solid var(--divider);border-radius:12px;transition:border-color .3s}
+.card-outlined:hover{border-color:var(--accent)}
+.card-filled{background:#f8fafc;border-radius:12px}
+.card-accent{background:var(--accent);color:#fff;border-radius:12px}
+.card-top-mark{background:#fff;border-radius:16px;border-top:3px solid var(--accent);box-shadow:0 4px 16px rgba(0,0,0,.04)}
+
+/* ===== 导航 ===== */
+.nav-dots{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:100}
+.nav-dot{width:10px;height:10px;border-radius:50%;background:rgba(0,0,0,.2);cursor:pointer;transition:all .3s}
+.nav-dot.active{background:var(--accent);width:28px;border-radius:5px}
+.nav-dots.dark .nav-dot{background:rgba(255,255,255,.25)}
+.nav-dots.dark .nav-dot.active{background:var(--accent)}
+.nav-arrows{position:fixed;top:50%;transform:translateY(-50%);width:100%;display:flex;justify-content:space-between;padding:0 20px;z-index:100;pointer-events:none}
+.nav-arrow{width:44px;height:44px;border-radius:50%;border:none;background:rgba(255,255,255,.9);box-shadow:0 4px 12px rgba(0,0,0,.08);cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;pointer-events:all;transition:all .3s}
+.nav-arrow:hover{background:var(--accent);color:#fff;transform:scale(1.1)}
+.slide-number{position:fixed;top:28px;right:36px;font-family:'Playfair Display',serif;font-size:.9rem;color:rgba(0,0,0,.25);z-index:100;letter-spacing:1px}
+/* 快捷键提示 */
+.key-hint{position:fixed;bottom:30px;right:36px;font-size:.68rem;color:rgba(0,0,0,.2);z-index:100;font-family:'JetBrains Mono'}
+</style>
+</head>
+<body>
+<div class="slide-container">
+
+<!-- ====== 在此处添加幻灯片 ====== -->
+<!-- 深色页: <div class="slide" data-dark="true" style="background:linear-gradient(180deg,var(--bg-dark-start),var(--bg-dark-end));"> -->
+<!-- 浅色页: <div class="slide" data-dark="false" style="background:linear-gradient(135deg,var(--bg-light-start),var(--bg-light-end));"> -->
+<!-- 纯白页: <div class="slide" data-dark="false" style="background:#fff;"> -->
+<!-- 中性页: <div class="slide" data-dark="false" style="background:#f8fafc;"> -->
+
+</div>
+
+<!-- 导航 -->
+<div class="nav-dots" id="navDots"></div>
+<div class="nav-arrows">
+  <button class="nav-arrow" onclick="prevSlide()">&#8249;</button>
+  <button class="nav-arrow" onclick="nextSlide()">&#8250;</button>
+</div>
+<div class="slide-number" id="slideNumber">01 / 00</div>
+<div class="key-hint">← → Space</div>
+
+<script>
+const slides=document.querySelectorAll('.slide');
+const totalSlides=slides.length;
+let currentSlide=0;
+const navDots=document.getElementById('navDots');
+for(let i=0;i<totalSlides;i++){const d=document.createElement('div');d.className='nav-dot'+(i===0?' active':'');d.onclick=()=>goToSlide(i);navDots.appendChild(d)}
+
+function updateSlide(){
+  slides.forEach((s,i)=>s.classList.toggle('active',i===currentSlide));
+  document.querySelectorAll('.nav-dot').forEach((d,i)=>d.classList.toggle('active',i===currentSlide));
+  document.getElementById('slideNumber').textContent=String(currentSlide+1).padStart(2,'0')+' / '+String(totalSlides).padStart(2,'0');
+  const isDark=slides[currentSlide]&&slides[currentSlide].dataset.dark==='true';
+  navDots.classList.toggle('dark',isDark);
+  document.getElementById('slideNumber').style.color=isDark?'rgba(255,255,255,.35)':'rgba(0,0,0,.25)';
+  document.querySelector('.key-hint').style.color=isDark?'rgba(255,255,255,.2)':'rgba(0,0,0,.2)';
+}
+function nextSlide(){currentSlide=(currentSlide+1)%totalSlides;updateSlide()}
+function prevSlide(){currentSlide=(currentSlide-1+totalSlides)%totalSlides;updateSlide()}
+function goToSlide(n){currentSlide=n;updateSlide()}
+
+// 键盘
+document.addEventListener('keydown',(e)=>{
+  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();nextSlide()}
+  if(e.key==='ArrowLeft'){e.preventDefault();prevSlide()}
+  if(e.key==='Home'){e.preventDefault();goToSlide(0)}
+  if(e.key==='End'){e.preventDefault();goToSlide(totalSlides-1)}
+});
+// 触摸
+let tx=0;
+document.addEventListener('touchstart',(e)=>{tx=e.touches[0].clientX});
+document.addEventListener('touchend',(e)=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50){d>0?nextSlide():prevSlide()}});
+// 滚轮（节流）
+let wc=false;
+document.addEventListener('wheel',(e)=>{if(wc)return;wc=true;if(e.deltaY>30)nextSlide();else if(e.deltaY<-30)prevSlide();setTimeout(()=>{wc=false},700)});
+
+if(totalSlides>0)updateSlide();
+</script>
+</body>
+</html>
