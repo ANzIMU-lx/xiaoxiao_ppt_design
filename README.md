@@ -7,7 +7,7 @@
 ## 效果
 
 - 单文件 HTML 横向翻页演示，浏览器打开即用
-- 4 套主题色一键切换
+- 唯一主题：暖彩三色（青绿 / 玫瑰 / 暖金）
 - 17 种布局模式（含咨询密集风 + 纯文字大字报）
 - 37 个可复用组件（数据/流程/文字效果/交互动效）
 - 3 个场景规范（数据报告/团队分享/述职汇报）
@@ -19,28 +19,30 @@
 
 文件已在 `.kiro/skills/` 目录下，聊天时引用 `#ppt-creation` 即可。
 
+### Cursor（推荐）
+
+```bash
+git clone https://github.com/ANzIMU-lx/xiaoxiao_ppt_design.git ~/.cursor/skills/xiaoxiao-ppt-design
+```
+
+克隆后重启 Cursor 或新开对话即可调用。
+
 ### Claude Code
 
 ```bash
-git clone https://github.com/你的用户名/ppt-skill.git ~/.claude/skills/ppt-skill
+git clone https://github.com/ANzIMU-lx/xiaoxiao_ppt_design.git ~/.claude/skills/xiaoxiao-ppt-design
 ```
 
-或直接告诉 Agent：
+### Kiro / Windsurf / 其他
 
-```
-帮我安装 ppt-skill。请把 https://github.com/你的用户名/ppt-skill 克隆到 ~/.claude/skills/ppt-skill
-```
-
-### Cursor / Windsurf / 其他
-
-把 skill 文件放到项目目录，对话时让 AI 先读取 `ppt-creation.md` 再开始工作。
+把 skill 文件放到对应 skills 目录（或项目目录），对话时让 AI 先读取 `SKILL.md` 再开始工作。
 
 ## 使用
 
 直接对 Agent 说：
 
 ```
-帮我基于这份 Markdown 做一份数据分析报告 PPT，用深空蓝主题。
+帮我基于这份 Markdown 做一份数据分析报告 PPT。
 ```
 
 Agent 会按 7 步工作流执行：问5个问题 → 选场景 → 复制模板 → 规划节奏 → 选布局填内容 → 自检 → 交付。
@@ -57,7 +59,7 @@ ppt-skill/
 └── references/
     ├── layouts.md           ← 17 种布局 A-Q（含完整代码）
     ├── components.md        ← 37 个组件（数据/流程/文字/交互）
-    ├── themes.md            ← 4 套主题色预设
+    ├── themes.md            ← 暖彩三色（唯一主题）
     ├── checklist.md         ← P0/P1/P2 质量检查
     ├── scene-data-report.md ← 数据报告场景规范
     ├── scene-team-share.md  ← 团队分享场景规范
@@ -68,9 +70,9 @@ ppt-skill/
 
 | 场景 | 推荐主题 | 信息密度 | 特点 |
 |------|---------|---------|------|
-| 数据报告 | 深空蓝/石墨灰 | 高 | 咨询风×设计系统结合 |
-| 团队分享 | 暖金/森林绿 | 中 | 故事驱动、节奏活泼 |
-| 述职汇报 | 深空蓝/暖金 | 中高 | STAR原则、成果导向 |
+| 数据报告 | 暖彩三色 | 高 | 咨询风×设计系统结合 |
+| 团队分享 | 暖彩三色 | 中 | 故事驱动、节奏活泼 |
+| 述职汇报 | 暖彩三色 | 中高 | STAR原则、成果导向 |
 
 ## 核心设计原则
 
@@ -78,7 +80,7 @@ ppt-skill/
 2. **结论先行** — 数据页必须有洞察条，不是只放图表
 3. **节奏变化** — 连续两页不同布局，深浅交替，每3-4页一个呼吸页
 4. **禁止 emoji** — 统一 SVG 线条图标
-5. **主题色锁定** — 只能用4套预设，禁止自定义 hex
+5. **主题色锁定** — 唯一暖彩三色，禁止换主题、禁止自定义 hex
 
 ## 致谢
 

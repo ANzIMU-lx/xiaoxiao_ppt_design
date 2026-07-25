@@ -1,12 +1,20 @@
 ---
-inclusion: manual
+name: xiaoxiao-ppt-design
+description: >-
+  PPT制作 · 数据分析师专用演示系统。单文件 HTML 横向翻页演示，覆盖数据报告/团队分享/述职汇报。
+  Use when the user asks for PPT、演示文稿、汇报幻灯片、数据分析报告演示、述职 PPT、
+  团队分享页、HTML PPT、幻灯片设计, or references ppt-creation / xiaoxiao ppt skill.
 ---
 
 # PPT Skill · 数据分析师专用演示系统
 
 <!-- ©xiaoxiao · PPT Design Skill v2.0 -->
 
-> 单文件 HTML 横向翻页演示系统，覆盖数据分析报告、团队分享、述职汇报三大场景。
+> 单文件 HTML 翻页演示系统（默认横向；用户要求时可纵向），覆盖数据分析报告、团队分享、述职汇报三大场景。
+
+开始工作前先读本文件；视觉约束读 [brand-dna.md](brand-dna.md)（含**演示字号与铺满规则**）；布局/组件/主题/清单在 [references/](references/)。
+
+**交付铁律（2026-07）：** 演示默认大字号 + 内容区铺满视口 + 零溢出；配色锁定暖彩三色；`.slide` 禁止行内 `position:relative`。细则见 `brand-dna.md`；自检见 `checklist.md` P0。
 
 ---
 
@@ -137,8 +145,8 @@ inclusion: manual
   - 策略/路径框需写清具体步骤链+产出物
   - 底部洞察条≥1.5行，说清 so what + 具体影响量级
   - 正文字号≥1.08rem，标题≥2.1rem（演示可读；见 brand-dna 铺满规则）
-  - 内容区铺满约 96–98vw × 88–94vh，禁止窄栏居中留白、禁止末项被裁切
   - 浅色背景为主（深色仅用于封面/结尾，不超过2页）
+  - 内容区铺满约 96–98vw × 88–94vh，禁止窄栏居中留白、禁止末项被裁切
 
 ---
 
@@ -180,24 +188,25 @@ inclusion: manual
 ## 四、文件结构
 
 ```
-.kiro/skills/
-├── ppt-creation.md           ← 本文件（SKILL主控·工作流+场景+禁忌）
+~/.cursor/skills/xiaoxiao-ppt-design/
+├── SKILL.md                  ← 本文件（SKILL主控·工作流+场景+禁忌）
 ├── brand-dna.md              ← 品牌基因：字体/配色/卡片体系/文字样式/间距/禁忌
 ├── assets/
-│   └── template.html         ← HTML模板骨架（CSS变量+5种卡片+动画+导航+快捷键）
+│   └── template.html         ← HTML模板骨架（CSS变量+动画+导航+快捷键）
 └── references/
-    ├── layouts.md            ← 12种布局模式 A~L（含完整代码+变体）
-    ├── components.md         ← 14个组件（数据/流程/展示/装饰四大类）
+    ├── layouts.md            ← 布局模式（含完整代码+变体）
+    ├── components.md         ← 组件库（数据/流程/展示/装饰）
     ├── themes.md             ← 暖彩三色（唯一主题）
     ├── checklist.md          ← 质量检查 P0/P1/P2 分级
     ├── scene-data-report.md  ← 数据报告场景规范
     ├── scene-team-share.md   ← 团队分享场景规范
-    └── scene-review.md       ← 述职汇报场景规范
+    ├── scene-review.md       ← 述职汇报场景规范
+    └── scene-report-mode.md  ← 汇报模式场景规范
 ```
 
 ### 加载顺序
 
-1. 读 `ppt-creation.md`（本文件）了解工作流
+1. 读 `SKILL.md`（本文件）了解工作流
 2. 5问澄清确定场景 → 读对应 `scene-*.md`
 3. 读 `brand-dna.md` + `themes.md` 确定视觉约束
 4. 复制 `assets/template.html`（已含暖彩三色 `:root`，勿换主题）
