@@ -82,11 +82,6 @@ ppt-skill/
 4. **禁止 emoji** — 统一 SVG 线条图标
 5. **主题色锁定** — 唯一暖彩三色，禁止换主题、禁止自定义 hex
 
-## 致谢
-
-设计理念参考了：
-- [Guizang PPT Skill](https://github.com/op7418/guizang-ppt-skill) — 双视觉系统 + 版式锁定
-- [Esther Design System](https://github.com/esthersjw/esther-design-system) — 品牌约束 + 组件库
 
 ## License
 
